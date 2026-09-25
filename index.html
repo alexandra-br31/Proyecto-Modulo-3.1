@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OrderFast | Gestión de Pedidos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app">
+ 
+        <!-- LOGIN -->
+        <section id="loginView" class="auth-view">
+            <div class="auth-card">
+                <div class="brand">
+                    <div class="brand-icon">OF</div>
+                    <div>
+                        <h1>OrderFast</h1>
+                        <p>Gestión de pedidos</p>
+                    </div>
+                </div>
+ 
+                <h2>Iniciar sesión</h2>
+                <p class="subtitle">Ingresa a tu cuenta para administrar los pedidos.</p>
+ 
+                <form id="loginForm">
+                    <label for="loginUser">Usuario</label>
+                    <input id="loginUser" type="text" placeholder="Ej. kelly123" required>
+ 
+                    <label for="loginPassword">Contraseña</label>
+                    <div class="password-box">
+                        <input id="loginPassword" type="password" placeholder="Ingresa tu contraseña" required>
+                        <button type="button" class="show-password" onclick="togglePassword('loginPassword', this)">Ver</button>
+                    </div>
+ 
+                    <button class="primary-btn" type="submit">Iniciar sesión</button>
+                    <p id="loginMessage" class="message"></p>
+                </form>
+ 
+                <div class="divider"><span>o</span></div>
+                <p class="account-text">¿No tienes una cuenta?</p>
+                <button class="secondary-btn" onclick="showView('registerView')">Crear una cuenta</button>
+            </div>
+        </section>
+ 
+        <!-- REGISTRO -->
+        <section id="registerView" class="auth-view hidden">
+            <div class="auth-card register-card">
+                <button class="back-btn" onclick="showView('loginView')">← Volver al inicio de sesión</button>
+ 
+                <div class="brand compact">
+                    <div class="brand-icon">OF</div>
+                    <div>
+                        <h1>OrderFast</h1>
+                        <p>Gestión de pedidos</p>
+                    </div>
+                </div>
+ 
+                <h2>Crear cuenta</h2>
+                <p class="subtitle">Registra tus datos para comenzar a utilizar OrderFast.</p>
+ 
+                <form id="registerForm">
+                    <div class="two-columns">
+                        <div>
+                            <label for="fullName">Nombre completo</label>
+                            <input id="fullName" type="text" placeholder="Tu nombre" required>
+                        </div>
+                        <div>
+                            <label for="newUser">Usuario</label>
+                            <input id="newUser" type="text" placeholder="Ej. kelly123" required>
+                        </div>
+                    </div>
+ 
+                    <label for="email">Correo electrónico</label>
+                    <input id="email" type="email" placeholder="correo@ejemplo.com" required>
+ 
+                    <label for="role">Tipo de usuario</label>
+                    <select id="role" required>
+                        <option value="">Selecciona una opción</option>
+                        <option>Mesero</option>
+                        <option>Personal de cocina</option>
+                        <option>Administrador</option>
+                    </select>
+ 
+                    <div class="two-columns">
+                        <div>
+                            <label for="newPassword">Contraseña</label>
+                            <div class="password-box">
+                                <input id="newPassword" type="password" placeholder="Mínimo 6 caracteres" required minlength="6">
+                                <button type="button" class="show-password" onclick="togglePassword('newPassword', this)">Ver</button>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="confirmPassword">Confirmar contraseña</label>
+                            <input id="confirmPassword" type="password" placeholder="Repite la contraseña" required>
+                        </div>
+                    </div>
+ 
+                    <label class="check-row">
+                        <input id="terms" type="checkbox" required>
+                        <span>Acepto el uso de la cuenta para gestionar pedidos del restaurante.</span>
+                    </label>
+ 
+                    <button class="primary-btn" type="submit">Crear cuenta</button>
+                    <p id="registerMessage" class="message"></p>
+                </form>
+            </div>
+        </section>
+ 
+        <!-- PANEL PRINCIPAL -->
+        <section id="dashboardView" class="dashboard hidden">
+            <header class="topbar">
+                <div class="brand top-brand">
+                    <div class="brand-icon">OF</div>
+                    <div>
+                        <h1>OrderFast</h1>
+                        <p>Gestión de pedidos</p>
+                    </div>
+                </div>
+                <div class="user-area">
+                    <div>
+                        <strong id="welcomeUser">Usuario</strong>
+                        <span id="welcomeRole">Mesero</span>
+                    </div>
+                    <button class="logout-btn" onclick="logout()">Cerrar sesión</button>
+                </div>
+            </header>
+ 
+            <main class="dashboard-content">
+                <div class="welcome">
+                    <div>
+                        <p class="small-title">PANEL PRINCIPAL</p>
+                        <h2>Bienvenido a OrderFast</h2>
+                        <p>Administra mesas, platillos y pedidos desde un solo lugar.</p>
+                    </div>
+                    <button class="new-order-btn" onclick="showDemoMessage()">+ Nuevo pedido</button>
+                </div>
+ 
+                <div class="stats">
+                    <div class="stat-card">
+                        <span class="stat-icon">M</span>
+                        <div><strong>12</strong><span>Mesas disponibles</span></div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-icon">P</span>
+                        <div><strong>5</strong><span>Pedidos pendientes</span></div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-icon">✓</span>
+                        <div><strong>8</strong><span>Pedidos listos</span></div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-icon">$</span>
+                        <div><strong>$245.50</strong><span>Ventas del día</span></div>
+                    </div>
+                </div>
+ 
+                <div class="dashboard-grid">
+                    <div class="panel">
+                        <div class="panel-title">
+                            <h3>Pedidos recientes</h3>
+                            <button onclick="showDemoMessage()">Ver todos</button>
+                        </div>
+                        <div class="order-list">
+                            <div class="order-row">
+                                <div><strong>Pedido #001</strong><span>Mesa 4 · Carlos</span></div>
+                                <span class="status pending">Pendiente</span>
+                                <strong>$18.50</strong>
+                            </div>
+                            <div class="order-row">
+                                <div><strong>Pedido #002</strong><span>Mesa 7 · María</span></div>
+                                <span class="status preparing">En preparación</span>
+                                <strong>$25.00</strong>
+                            </div>
+                            <div class="order-row">
+                                <div><strong>Pedido #003</strong><span>Mesa 2 · Ana</span></div>
+                                <span class="status ready">Listo</span>
+                                <strong>$12.75</strong>
+                            </div>
+                        </div>
+                    </div>
+ 
+                    <div class="panel">
+                        <div class="panel-title"><h3>Acciones rápidas</h3></div>
+                        <div class="quick-actions">
+                            <button onclick="showDemoMessage()">🍽 Administrar mesas</button>
+                            <button onclick="showDemoMessage()">📖 Ver platillos</button>
+                            <button onclick="showDemoMessage()">📋 Registrar pedido</button>
+                            <button onclick="showDemoMessage()">🕘 Historial</button>
+                        </div>
+                    </div>
+                </div>
+                <p id="demoMessage" class="demo-message"></p>
+            </main>
+        </section>
+    </div>
+ 
+    <script src="script.js"></script>
+</body>
+</html>
+ 
